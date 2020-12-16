@@ -3,18 +3,29 @@
 Created on Tue Dec  1 22:39:50 2020
 
 @author: Lesile
-"""
-#%%调用常见模块
-import os
-import pandas as pd
-import numpy as np
-from datetime import timedelta #调用子模块
-from datetime import datetime #调用子模块
 
-import time
-from bs4 import BeautifulSoup
+
+头文件的方式抓取新页面
+
+"""
+#%%加载常用Python模块
+import sys
+import os
+import numpy as np
+import pandas as pd
+
+from datetime import datetime
+from datetime import timedelta
+
 import requests
-import random
+from urllib import request
+from bs4 import BeautifulSoup 
+from selenium import webdriver
+import time
+
+import re
+import requests
+
 #%%
 def CrawlerData(date):
     """
@@ -27,7 +38,12 @@ def CrawlerData(date):
         'Cookie': 'REPORT_USERCOOKIE_USERNAME=wanggb%40igwfmc.com; JSESSIONID=e8039165d82329cf0b62fb0ff798; JREPLICA=instance234; ROUTEID=.4; REPORT_SESSION_COOKIE=UZFefbU5f93VYQrav6jACpTPY1w%2Fd4Lr9cXrftqYBOzeL4oVZCPtqqWGdrM%2BEEi8r21oiIQds5Ar%0A%2BwiA2ZfqyQ%3D%3D; JSESSIONIDVERSION=2f:28',
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36'
         }    
+    headers = {
+        'Cookie': 'REPORT_USERCOOKIE_USERNAME=zengl%40invescogreatwall.com; JSESSIONID=674d3cc4a46c2523d1afc14deaa7; JREPLICA=instance235; ROUTEID=.3; REPORT_SESSION_COOKIE=%2BMvPVCRCEbqZM9De8ialM7uPwqxGhD%2BAO%2BudqFTYDUCRYFUL0N1WOPrt2RtvCb9ur21oiIQds5Ar%0A%2BwiA2ZfqyQ%3D%3D; JSESSIONIDVERSION=2f:80',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36'
+        }   
     url = 'https://igwfmc.kanzhiqiu.com/calendar/events.htm?newweb=true&pageSize=-1&page=1&sort=a.begindate&asc=true&showAll=true&stocks=&search=&type=&ipt_start={}&location='.format(date)
+    url = r'https://www.kanzhiqiu.com/calendar/events.htm?type=&ipt_start={}&location_select=&location=&stocks=&search='.format(date)
     result = requests.get(url, headers=headers)
     time.sleep(random.random())
     the_text = result.text
